@@ -15,3 +15,20 @@ interface Props {
     <slot />
   </body>
 </html>
+
+<style is:global>
+  .pipe-cursor {
+    ::after {
+      content: "|";
+      position: absolute;
+      right: -0.4em;
+      animation: blink 1s step-end infinite;
+    }
+  }
+
+  @keyframes blink {
+    50% {
+      opacity: 0;
+    }
+  }
+</style>

@@ -1,10 +1,9 @@
 {
   "extends": "astro/tsconfigs/strict",
   "compilerOptions": {
-    "jsx": "react-jsx",
-    "jsxImportSource": "preact",
+    "jsx": "react",
     "moduleResolution": "node",
-    "baseUrl": ".",
+    "baseUrl": "/Users/jesusoyanedelespinoza/Documents/proyectos/astrotype",
     "paths": {
       "$lib/*": [
         "./src/lib/*"

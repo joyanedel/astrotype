@@ -1,6 +1,9 @@
 import type { KeyboardRegisteredEvent } from '$lib/types'
 import { getTargetTextAlreadyTypedWords, getTargetTextCurrentWord, getTargetTextIncomingWords, handleKeyDown, keyboardEventsReducer } from '$lib/process'
-import { useEffect, useState } from 'preact/hooks'
+import AlreadyTypedWord from './AlreadyTypedWord'
+import { useState, type KeyboardEventHandler, type KeyboardEvent } from 'react'
+import React from 'react'
+import CurrentWord from './CurrentWord'
 
 const ACCEPTABLE_CHARACTERS = /^([a-z]|backspace| )$/
 
@@ -22,7 +25,7 @@ export function TextBoard(props: TextBoardProps) {
 
   const currentText = keyboardEventsReducer(currentRegisteredEvents)
 
-  const currentUserWords = getTargetTextAlreadyTypedWords(currentText, currentText)
+  const currentWord = currentText.split(' ').at(-1) || ''
   const currentTargetWord = getTargetTextCurrentWord(props.targetText, currentText)
 
   const alreadyTypedUserWords = getTargetTextAlreadyTypedWords(currentText, currentText)
@@ -32,14 +35,14 @@ export function TextBoard(props: TextBoardProps) {
 
   return (
     <>
-      <section className="tracking-widest p-20 text-2xl">
+      <section className="tracking-widest p-20 text-2xl gap-4 flex w-screen flex-wrap">
         {
-          alreadyTypedTargetWords.map((word, index) => (
-            <span key={index} className="text-gray-400">{word} </span>
+          alreadyTypedUserWords.map((word, index) => (
+            <AlreadyTypedWord key={index} targetWord={alreadyTypedTargetWords[index]} userWord={word} />
           ))
         }
 
-        {currentTargetWord && <span className="text-blue-400">{currentTargetWord}</span>}
+        <CurrentWord targetWord={currentTargetWord} userWord={currentWord} />
 
         {
           incomingTargetWords.map((word, index) => (
