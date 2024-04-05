@@ -1,7 +1,15 @@
 ---
-import Layout from "./layout.astro";
+import { TextBoard } from "src/components/TextBoard";
+import Layout from "../layouts/layout.astro";
+
+const targetText =
+	"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
+
+const targetWords = targetText.split(" ");
 ---
 
 <Layout title="AstroType">
-	<main>Main content</main>
+	<main class="font-mono flex justify-center items-center h-full">
+		<TextBoard client:idle targetText={targetText} />
+	</main>
 </Layout>
