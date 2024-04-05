@@ -1,0 +1,32 @@
+---
+interface Props {
+  targetText: string;
+}
+
+const targetTextLengthWithoutSpaces = Astro.props.targetText.replaceAll(
+  " ",
+  "",
+).length;
+---
+
+<header class="h-20 bg-gray-500 w-full flex flex-row">
+  <div class="flex flex-row">
+    <span id="user-char-count"> 0 </span>
+    /
+    <div>
+      {targetTextLengthWithoutSpaces}
+    </div>
+  </div>
+</header>
+
+<script>
+  import { keyboardEventsReducer } from "$lib/process";
+  import { userEvents } from "$store/userEvents";
+
+  userEvents.subscribe((events) => {
+    const currentText = keyboardEventsReducer(events);
+    document.getElementById("user-char-count")!.innerText = currentText
+      .replaceAll(" ", "")
+      .length.toString();
+  });
+</script>

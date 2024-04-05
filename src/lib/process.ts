@@ -14,7 +14,7 @@ export const handleKeyDown = (eventKey: string, lastChar?: string): KeyboardRegi
   return { type: 'CHAR', value: eventKey, timestamp }
 }
 
-export const keyboardEventsReducer = (state: KeyboardRegisteredEvent[]): string => {
+export const keyboardEventsReducer = (state: readonly KeyboardRegisteredEvent[]): string => {
   return state.reduce((acc, event) => {
     if (event.type === 'CHAR') {
       return acc + event.value

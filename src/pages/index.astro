@@ -2,12 +2,14 @@
 import { TextBoard } from "src/components/TextBoard";
 import Layout from "../layouts/layout.astro";
 import { getNWords } from "$lib/words";
+import IndexHeader from "./index-header.astro";
 
 const targetText = (await getNWords(10)).join(" ");
 ---
 
 <Layout title="AstroType">
-	<main class="font-mono flex justify-center items-center h-full">
+	<main class="font-mono flex flex-col justify-start items-center h-full">
+		<IndexHeader client:load targetText={targetText} />
 		<TextBoard client:idle targetText={targetText} />
 	</main>
 </Layout>

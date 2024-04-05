@@ -1,9 +1,11 @@
 import type { KeyboardRegisteredEvent } from '$lib/types'
 import { getTargetTextAlreadyTypedWords, getTargetTextCurrentWord, getTargetTextIncomingWords, handleKeyDown, keyboardEventsReducer } from '$lib/process'
 import AlreadyTypedWord from './AlreadyTypedWord'
-import { useState, type KeyboardEventHandler, type KeyboardEvent } from 'react'
+import { useState, type KeyboardEvent } from 'react'
 import React from 'react'
 import CurrentWord from './CurrentWord'
+
+import { userEvents } from 'src/store/userEvents'
 
 const ACCEPTABLE_CHARACTERS = /^([a-z]|backspace| )$/
 
@@ -21,6 +23,8 @@ export function TextBoard(props: TextBoardProps) {
     const currentLastChar = keyboardEventsReducer(currentRegisteredEvents).at(-1)
     const newEvent = handleKeyDown(eventKey, currentLastChar)
     setCurrentRegisteredEvents([...currentRegisteredEvents, newEvent])
+
+    userEvents.set([...currentRegisteredEvents, newEvent])
   }
 
   const currentText = keyboardEventsReducer(currentRegisteredEvents)
@@ -45,20 +49,22 @@ export function TextBoard(props: TextBoardProps) {
 
   return (
     <>
-      <section className="tracking-widest p-20 text-2xl gap-4 flex w-screen flex-wrap">
-        {
-          alreadyTypedUserWords.map((word, index) => (
-            <AlreadyTypedWord key={index} targetWord={alreadyTypedTargetWords[index]} userWord={word} />
-          ))
-        }
+      <section className="tracking-widest p-20 text-2xl flex justify-center items-center h-full">
+        <p className='gap-4 flex flex-wrap'>
+          {
+            alreadyTypedUserWords.map((word, index) => (
+              <AlreadyTypedWord key={index} targetWord={alreadyTypedTargetWords[index]} userWord={word} />
+            ))
+          }
 
-        <CurrentWord targetWord={currentTargetWord} userWord={currentWord} />
+          <CurrentWord targetWord={currentTargetWord} userWord={currentWord} />
 
-        {
-          incomingTargetWords.map((word, index) => (
-            <span key={index} className="text-gray-400"> {word}</span>
-          ))
-        }
+          {
+            incomingTargetWords.map((word, index) => (
+              <span key={index} className="text-gray-400"> {word}</span>
+            ))
+          }
+        </p>
       </section>
       <input className="w-full p-4 text-2xl opacity-0 h-full -z-[-999] absolute" onKeyDown={handleEvent} />
     </>
