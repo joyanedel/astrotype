@@ -9,3 +9,8 @@ export type KeyboardRegisteredEvent = {
 } | {
   type: 'BACKSPACE'
 })
+
+export type CharMatch = {
+  char: string
+  status: 'CORRECT' | 'INCORRECT' | 'MISSED' | 'OVERTYPED'
+}

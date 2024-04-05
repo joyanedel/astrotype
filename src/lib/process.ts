@@ -1,4 +1,4 @@
-import type { KeyboardRegisteredEvent } from "./types"
+import type { CharMatch, KeyboardRegisteredEvent } from "./types"
 
 /**
  * Handle key down event and return an event data
@@ -46,4 +46,20 @@ export const getTargetTextCurrentWord = (targetInput: string, userInput: string)
   const userWords = userInput.split(' ')
 
   return targetWords[userWords.length - 1]
+}
+
+export const processWord = (targetWord: string, userWord: string): CharMatch[] => {
+  const maxLength = Math.max(targetWord.length, userWord.length)
+  const targetWordPadded = targetWord.padEnd(maxLength, ' ')
+
+  return targetWordPadded.split('').map((char, index) => {
+    if (char === userWord[index]) {
+      return { char, status: 'CORRECT' }
+    } else if (userWord[index] === undefined) {
+      return { char, status: 'MISSED' }
+    } else if (char === ' ') {
+      return { char: userWord[index], status: 'OVERTYPED' }
+    }
+    return { char, status: 'INCORRECT' }
+  })
 }

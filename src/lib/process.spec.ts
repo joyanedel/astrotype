@@ -1,6 +1,6 @@
 import { test, expect, describe } from "vitest"
 
-import { getTargetTextCurrentWord, getTargetTextAlreadyTypedWords, getTargetTextIncomingWords } from "./process"
+import { getTargetTextCurrentWord, getTargetTextAlreadyTypedWords, getTargetTextIncomingWords, processWord } from "./process"
 
 
 describe('getTargetTextCurrentWord', () => {
@@ -114,5 +114,68 @@ describe('getTargetTextIncomingWords', () => {
     const result = getTargetTextIncomingWords(targetInput, sutInput)
 
     expect(result).toStrictEqual([])
+  })
+})
+
+describe('processWord', () => {
+  test('processWord returns correct chars', () => {
+    const targetWord = 'lorem'
+    const userWord = 'lorem'
+
+    const result = processWord(targetWord, userWord)
+
+    expect(result).toStrictEqual([
+      { char: 'l', status: 'CORRECT' },
+      { char: 'o', status: 'CORRECT' },
+      { char: 'r', status: 'CORRECT' },
+      { char: 'e', status: 'CORRECT' },
+      { char: 'm', status: 'CORRECT' }
+    ])
+  })
+
+  test('processWord returns incorrect chars', () => {
+    const targetWord = 'lorem'
+    const userWord = 'larem'
+
+    const result = processWord(targetWord, userWord)
+
+    expect(result).toStrictEqual([
+      { char: 'l', status: 'CORRECT' },
+      { char: 'o', status: 'INCORRECT' },
+      { char: 'r', status: 'CORRECT' },
+      { char: 'e', status: 'CORRECT' },
+      { char: 'm', status: 'CORRECT' }
+    ])
+  })
+
+  test('processWord returns overtyped chars', () => {
+    const targetWord = 'lorem'
+    const userWord = 'loremm'
+
+    const result = processWord(targetWord, userWord)
+
+    expect(result).toStrictEqual([
+      { char: 'l', status: 'CORRECT' },
+      { char: 'o', status: 'CORRECT' },
+      { char: 'r', status: 'CORRECT' },
+      { char: 'e', status: 'CORRECT' },
+      { char: 'm', status: 'CORRECT' },
+      { char: 'm', status: 'OVERTYPED' }
+    ])
+  })
+
+  test('processWord returns missed chars', () => {
+    const targetWord = 'lorem'
+    const userWord = 'lor'
+
+    const result = processWord(targetWord, userWord)
+
+    expect(result).toStrictEqual([
+      { char: 'l', status: 'CORRECT' },
+      { char: 'o', status: 'CORRECT' },
+      { char: 'r', status: 'CORRECT' },
+      { char: 'e', status: 'MISSED' },
+      { char: 'm', status: 'MISSED' }
+    ])
   })
 })
