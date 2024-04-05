@@ -33,6 +33,16 @@ export function TextBoard(props: TextBoardProps) {
 
   const incomingTargetWords = getTargetTextIncomingWords(props.targetText, currentText)
 
+  const isFinished = props.targetText.length > 0
+    && (
+      (incomingTargetWords.length === 0 && currentWord.length === currentTargetWord?.length)
+      || (alreadyTypedTargetWords.length === props.targetText.split(' ').length)
+    )
+
+  if (isFinished) {
+    window.location.href = '/completed'
+  }
+
   return (
     <>
       <section className="tracking-widest p-20 text-2xl gap-4 flex w-screen flex-wrap">
