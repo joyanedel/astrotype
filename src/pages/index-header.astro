@@ -3,10 +3,8 @@ interface Props {
   targetText: string;
 }
 
-const targetTextLengthWithoutSpaces = Astro.props.targetText.replaceAll(
-  " ",
-  "",
-).length;
+const targetText = Astro.props.targetText || "";
+const targetTextLengthWithoutSpaces = targetText.replaceAll(" ", "").length;
 ---
 
 <header class="h-20 bg-gray-500 w-full flex flex-row">

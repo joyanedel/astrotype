@@ -9,7 +9,7 @@ const targetText = (await getNWords(10)).join(" ");
 
 <Layout title="AstroType">
 	<main class="font-mono flex flex-col justify-start items-center h-full">
-		<IndexHeader client:load targetText={targetText} />
+		<IndexHeader targetText={targetText} />
 		<TextBoard client:idle targetText={targetText} />
 	</main>
 </Layout>
