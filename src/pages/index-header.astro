@@ -19,7 +19,7 @@ const targetTextLengthWithoutSpaces = targetText.replaceAll(" ", "").length;
 
 <script>
   import { keyboardEventsReducer } from "$lib/process";
-  import { userEvents } from "$store/userEvents";
+  import userEvents from "$store/userEvents";
 
   userEvents.subscribe((events) => {
     const currentText = keyboardEventsReducer(events);

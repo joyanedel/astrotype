@@ -4,7 +4,7 @@ import type { CharMatch, KeyboardRegisteredEvent } from "./types"
  * Handle key down event and return an event data
 */
 export const handleKeyDown = (eventKey: string, lastChar?: string): KeyboardRegisteredEvent => {
-  const timestamp = new Date()
+  const timestamp = new Date().toISOString()
   if (eventKey === ' ') {
     console.log(lastChar)
     return { type: 'SPACE', ignore: lastChar == ' ', timestamp }

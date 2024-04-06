@@ -1,5 +1,5 @@
 export type KeyboardRegisteredEvent = {
-  timestamp: Date
+  timestamp: string
 } & ({
   type: 'CHAR'
   value: string

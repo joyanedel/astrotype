@@ -1,4 +1,9 @@
 import type { KeyboardRegisteredEvent } from "$lib/types"
-import { atom } from "nanostores"
+import { persistentAtom } from "@nanostores/persistent"
 
-export const userEvents = atom<KeyboardRegisteredEvent[]>([])
+const userEvents = persistentAtom<KeyboardRegisteredEvent[]>('keyboard', [], {
+  encode: JSON.stringify,
+  decode: JSON.parse,
+})
+
+export default userEvents

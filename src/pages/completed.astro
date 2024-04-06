@@ -1,12 +1,11 @@
 ---
 import Layout from "src/layouts/layout.astro";
 import IndexHeader from "./index-header.astro";
+import Statistics from "$components/Statistics";
 ---
 
 <Layout title="Finished">
   <main class="font-mono flex flex-col justify-start items-center h-full">
-    <IndexHeader targetText="peo" transition:name="header" />
-    <h1>Finished</h1>
-    <p>Thank you for your submission!</p>
+    <Statistics transition:name="board" client:idle />
   </main>
 </Layout>
