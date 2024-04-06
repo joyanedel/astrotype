@@ -1,9 +1,7 @@
 {
   "extends": "astro/tsconfigs/strict",
   "compilerOptions": {
-    "jsx": "react",
-    "moduleResolution": "node",
-    "baseUrl": "/Users/jesusoyanedelespinoza/Documents/proyectos/astrotype",
+    "baseUrl": ".",
     "paths": {
       "$lib/*": [
         "./src/lib/*"
