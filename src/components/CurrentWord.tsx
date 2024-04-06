@@ -11,16 +11,16 @@ function CurrentWord(props: CurrentWordProps) {
   const incomingTargetChars = props.targetWord.slice(props.userWord.length) || ''
 
   return (
-    <span className="relative h-fit w-fit flex">
-      <div className="relative pipe-cursor">
+    <div className="relative h-fit w-fit flex">
+      <span className="relative pipe-cursor">
         <AlreadyTypedWord targetWord={alreadyTypedTargetChars} userWord={props.userWord} />
-      </div>
+      </span>
       {
         incomingTargetChars.split('').map((char, index) => (
           <span key={index} className="text-gray-400">{char}</span>
         ))
       }
-    </span>
+    </div>
   )
 }
 

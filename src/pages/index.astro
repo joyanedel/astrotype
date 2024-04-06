@@ -4,7 +4,16 @@ import Layout from "../layouts/layout.astro";
 import { getNWords } from "$lib/words";
 import IndexHeader from "./index-header.astro";
 
-const targetText = (await getNWords(10)).join(" ");
+const rawWordsNumber = "20";
+const notValidatedWordsNumber = rawWordsNumber ? parseInt(rawWordsNumber) : 20;
+const wordsNumber =
+	notValidatedWordsNumber <= 0
+		? 20
+		: [5, 10, 20, 50, 100].includes(notValidatedWordsNumber)
+			? notValidatedWordsNumber
+			: 20;
+
+const targetText = (await getNWords(wordsNumber)).join(" ");
 ---
 
 <Layout title="AstroType">

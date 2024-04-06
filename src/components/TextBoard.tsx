@@ -52,7 +52,7 @@ export function TextBoard(props: TextBoardProps) {
   return (
     <>
       <section className="tracking-widest p-20 text-2xl flex justify-center items-center h-full">
-        <p className='gap-4 flex flex-wrap'>
+        <div className='gap-4 flex flex-wrap'>
           {
             alreadyTypedUserWords.map((word, index) => (
               <AlreadyTypedWord key={index} targetWord={alreadyTypedTargetWords[index]} userWord={word} />
@@ -66,7 +66,7 @@ export function TextBoard(props: TextBoardProps) {
               <span key={index} className="text-gray-400"> {word}</span>
             ))
           }
-        </p>
+        </div>
       </section>
       <input className="w-full p-4 text-2xl opacity-0 h-full -z-[-999] absolute" onKeyDown={handleEvent} />
     </>
